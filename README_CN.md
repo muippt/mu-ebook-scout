@@ -1,3 +1,10 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: light)" srcset="assets/default-banner.png">
+    <img alt="mu-ebook-scout" src="assets/default-banner.png" width="100%">
+  </picture>
+</p>
+
 # 🔍 mu-ebook-scout · 电子书下载器
 
 > **一次搜索，十个合法书源。** 中英双语公版与开放授权电子书的多源搜索工具——搜索引路者：只帮你找到并排序合法链接，只有你明确要求时才下载文件。提供 CLI、MCP server 和 Agent Skill 壳三种形态，一个内核，三个入口。
@@ -107,28 +114,34 @@
 
 ### 🛠️ 快速开始
 
-**① 安装**——要求 Python 3.10+：
+**① 安装**——将 Agent Skill 壳克隆到你的 skill 目录：
 
 ```bash
-# 从源码安装（PyPI 发布规划中）
-pipx install git+https://github.com/muippt/mu-ebook-scout
-
-# 含 MCP server 的扩展依赖
-pipx install "mu-ebook-scout[mcp]"
+git clone https://github.com/muippt/mu-ebook-scout.git ~/.claude/skills/mu-ebook-scout
 ```
 
-或使用 Agent Skill 壳：将 [`skills/mu-ebook-scout/`](skills/mu-ebook-scout/) 复制到你 Agent 的 skill 目录（如 `~/.claude/skills/mu-ebook-scout`）。
+> 其他 Agent 可使用各自的 skill 目录，或项目级 `.claude/skills/mu-ebook-scout`。若只想用独立 CLI：`pipx install git+https://github.com/muippt/mu-ebook-scout`（Python 3.10+；需要 MCP server 则安装 `[mcp]` 扩展）。
 
-**② 验证**：
+**② 验证**——重启或重载你的 Agent，然后发送：
 
-```bash
-bookscout search "西游记"
+```
+列出我当前可用的 Skills
 ```
 
-**③ 使用**——选定一条后下载：
+**③ 使用**——一条核心触发语：
 
-```bash
-bookscout get 2
+```
+帮我找一本《西游记》的合法免费电子书，最好有 EPUB 格式。
+```
+
+或指定工作流：
+
+```
+帮我把《金刚经》的公版电子书源都搜出来排个序
+```
+
+```
+下载第 2 条
 ```
 
 ---

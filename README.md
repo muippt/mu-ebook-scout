@@ -1,3 +1,10 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: light)" srcset="assets/default-banner.png">
+    <img alt="mu-ebook-scout" src="assets/default-banner.png" width="100%">
+  </picture>
+</p>
+
 # 🔍 mu-ebook-scout · 电子书下载器
 
 > **One search, ten legal book sources.** A multi-source search tool for public-domain and open-license ebooks in Chinese and English — a search guide that surfaces ranked links, and downloads a file only when you explicitly ask for it. Delivered as a CLI, an MCP server, and an Agent Skill shell: one core engine, three front-ends.
@@ -107,28 +114,34 @@ Nothing is downloaded until you say so. Every download goes through a host allow
 
 ### 🛠️ Quick Start
 
-**1) Install** — requires Python 3.10+:
+**1) Install** — clone the Agent Skill shell into your skill directory:
 
 ```bash
-# From source (PyPI release planned)
-pipx install git+https://github.com/muippt/mu-ebook-scout
-
-# With the MCP server extra
-pipx install "mu-ebook-scout[mcp]"
+git clone https://github.com/muippt/mu-ebook-scout.git ~/.claude/skills/mu-ebook-scout
 ```
 
-Or use the Agent Skill shell: copy [`skills/mu-ebook-scout/`](skills/mu-ebook-scout/) into your agent's skill directory (e.g. `~/.claude/skills/mu-ebook-scout`).
+> Other agents may use their own skill directories, or a project-level `.claude/skills/mu-ebook-scout`. To use the standalone CLI instead: `pipx install git+https://github.com/muippt/mu-ebook-scout` (Python 3.10+; add the `[mcp]` extra for the MCP server).
 
-**2) Verify**:
+**2) Verify** — restart or reload your agent, then send:
 
-```bash
-bookscout search "西游记"
+```
+List my available skills
 ```
 
-**3) Run** — pick a hit and download:
+**3) Run** — one core prompt to exercise the primary value:
 
-```bash
-bookscout get 2
+```
+Find me a legal free copy of 西游记 (Journey to the West), preferably EPUB.
+```
+
+Or invoke a specific workflow:
+
+```
+帮我把《金刚经》的公版电子书源都搜出来排个序
+```
+
+```
+下载第 2 条
 ```
 
 ---

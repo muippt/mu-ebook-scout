@@ -8,99 +8,107 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔍</text></svg>">
 <style>
 :root{
-  --bg:#faf9f7;--bg-warm:#f5f0eb;--bg-card:#fff;--bg-code:#f7f5f2;
-  --border:#e8e2db;--border-light:#f0ebe5;
-  --text:#2d2a26;--text-secondary:#6b6560;--text-muted:#9e9690;
-  --accent:#c96442;--accent-light:#e8a07a;--accent-bg:rgba(201,100,66,0.06);
-  --green:#5a8a6a;--blue:#5a7a9a;--purple:#7a6a9a;--red:#c0705a;
-  --radius:12px;--radius-sm:8px;
-  --transition:0.25s ease;
-  --font:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans SC','PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;
-  --font-serif:'Georgia','Noto Serif SC','Source Han Serif SC',serif;
-  --font-mono:'SF Mono','Fira Code','JetBrains Mono',monospace;
+  --bg:#faf9f7;--bg-warm:#f5f0eb;--card:#fff;--text:#2d2a26;--muted:#6b6560;
+  --border:#e8e2db;--accent:#c96442;--accent-bg:rgba(201,100,66,.08);
+  --green:#5a8a6a;--red:#c0705a;--radius:12px;--transition:.25s ease;
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC","PingFang SC","Hiragino Sans GB",sans-serif;
+  --serif:Georgia,"Noto Serif SC",serif;
 }
 html.dark{
-  --bg:#24211f;--bg-warm:#302b27;--bg-card:#2c2825;--bg-code:#33302c;
-  --border:#4b423c;--border-light:#3d362f;
-  --text:#f5eee8;--text-secondary:#c6bcb4;--text-muted:#948a82;
-  --accent:#e8a07a;--accent-light:#c96442;--accent-bg:rgba(232,160,122,0.12);
+  --bg:#24211f;--bg-warm:#302b27;--card:#2c2825;--text:#f5eee8;--muted:#c6bcb4;
+  --border:#4b423c;--accent:#f0a27c;--accent-bg:rgba(240,162,124,.13);
   --green:#8db99a;--red:#ee9284;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;transition:background .3s ease,color .3s ease}
+body{font-family:var(--font);color:var(--text);line-height:1.6;background:var(--bg);transition:background .3s ease,color .3s ease}
 .container{max-width:960px;margin:0 auto;padding:0 28px}
 em{font-style:normal;color:var(--accent)}
+img{border:0}
 
-/* ===== Nav ===== */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,249,247,0.9);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border-light);transition:all var(--transition)}
-html.dark nav{background:rgba(36,33,31,0.9)}
+/* 统一弥散背景层（diffuse-light 关键实现） */
+.bg-layer{position:fixed;inset:0;z-index:-1;pointer-events:none;background:
+  radial-gradient(circle at 14% 8%,rgba(201,100,66,.12),transparent 28%),
+  radial-gradient(circle at 50% 5%,rgba(201,100,66,.06),transparent 35%),
+  radial-gradient(circle at 86% 18%,rgba(201,100,66,.07),transparent 35%),
+  radial-gradient(circle at 25% 40%,rgba(201,100,66,.08),transparent 32%),
+  radial-gradient(circle at 75% 55%,rgba(201,100,66,.06),transparent 38%),
+  radial-gradient(circle at 35% 72%,rgba(201,100,66,.08),transparent 34%),
+  radial-gradient(circle at 86% 88%,rgba(201,100,66,.10),transparent 30%),
+  var(--bg)}
+html.dark .bg-layer{background:
+  radial-gradient(circle at 14% 8%,rgba(240,162,124,.10),transparent 28%),
+  radial-gradient(circle at 50% 5%,rgba(240,162,124,.05),transparent 35%),
+  radial-gradient(circle at 86% 18%,rgba(240,162,124,.06),transparent 35%),
+  radial-gradient(circle at 25% 40%,rgba(240,162,124,.07),transparent 32%),
+  radial-gradient(circle at 75% 55%,rgba(240,162,124,.05),transparent 38%),
+  radial-gradient(circle at 35% 72%,rgba(240,162,124,.07),transparent 34%),
+  radial-gradient(circle at 86% 88%,rgba(240,162,124,.09),transparent 30%),
+  var(--bg)}
+
+/* Nav 极简 */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,249,247,0.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border);transition:all var(--transition)}
+html.dark nav{background:rgba(36,33,31,0.88)}
 .nav-inner{max-width:960px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:56px;gap:16px}
-.nav-logo{font-size:1.05rem;font-weight:700;color:var(--text);letter-spacing:-0.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex-shrink:1}
+.nav-logo{font-size:1.05rem;font-weight:700;color:var(--text);letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex-shrink:1}
 .nav-links{display:flex;gap:20px;list-style:none;flex-shrink:0}
-.nav-links a{color:var(--text-secondary);font-size:0.85rem;font-weight:500;transition:color var(--transition);text-decoration:none}
+.nav-links a{color:var(--muted);font-size:.85rem;font-weight:500;text-decoration:none;transition:color var(--transition)}
 .nav-links a:hover{color:var(--text)}
-.nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
-.lang-toggle,.theme-toggle{display:inline-flex;align-items:center;justify-content:center;width:34px;height:30px;border:1px solid var(--border);border-radius:6px;background:none;cursor:pointer;font-size:0.9rem;transition:all var(--transition);color:var(--text-muted)}
+.nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.lang-toggle,.theme-toggle{display:inline-flex;align-items:center;justify-content:center;width:32px;height:30px;border:1px solid var(--border);border-radius:6px;background:none;cursor:pointer;font-size:.85rem;transition:all var(--transition);color:var(--muted)}
 .lang-toggle:hover,.theme-toggle:hover{border-color:var(--accent);color:var(--text)}
-.nav-cta{padding:7px 18px;border-radius:7px;font-size:0.82rem;font-weight:600;background:var(--text);color:var(--bg);transition:all var(--transition);text-decoration:none}
+.nav-cta{padding:6px 16px;border-radius:7px;font-size:.8rem;font-weight:600;background:var(--text);color:var(--bg);text-decoration:none;transition:all var(--transition)}
 .nav-cta:hover{background:var(--accent);color:#fff;transform:translateY(-1px)}
 
-/* ===== Hero ===== */
-.hero{padding:138px 0 78px;text-align:center;background:var(--bg)}
+/* Hero 左对齐 */
+.hero{padding:138px 0 64px}
 .hero-badge{display:inline-flex;align-items:center;gap:7px;color:var(--accent);background:var(--accent-bg);padding:5px 11px;border-radius:999px;font-size:.84rem;font-weight:650}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
-.hero h1{font-family:var(--font-serif);font-size:clamp(2.2rem,5.6vw,4.2rem);line-height:1.12;letter-spacing:-0.03em;max-width:820px;margin:22px auto 16px}
-.hero-sub{max-width:680px;margin:0 auto;color:var(--text-secondary);font-size:1.05rem}
-.hero-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:30px}
-.btn{display:inline-flex;align-items:center;gap:6px;padding:11px 22px;border-radius:9px;font-size:0.92rem;font-weight:650;text-decoration:none;transition:all var(--transition);border:1px solid transparent}
+h1{font-family:var(--serif);font-size:clamp(2.5rem,6.4vw,5rem);line-height:1.06;letter-spacing:-.05em;max-width:850px;margin:20px 0 16px}
+.hero-sub{max-width:750px;color:var(--muted);font-size:1.08rem}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:11px 18px;border:1px solid var(--border);border-radius:8px;text-decoration:none;font-weight:650;color:var(--text);transition:all var(--transition)}
+.btn:hover{border-color:var(--accent);transform:translateY(-2px)}
 .btn-primary{background:var(--text);color:var(--bg);border-color:var(--text)}
-.btn-primary:hover{background:var(--accent);border-color:var(--accent);color:#fff;transform:translateY(-2px)}
-.btn-secondary{background:none;color:var(--text);border-color:var(--border)}
-.btn-secondary:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+.btn-primary:hover{background:var(--accent);border-color:var(--accent);color:#fff}
 
-/* ===== Stats ===== */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border-light);border:1px solid var(--border-light);border-radius:var(--radius);overflow:hidden;margin-top:46px}
-.stat{background:var(--bg-card);padding:26px 14px 20px;text-align:center}
-.stat-num{font-size:2.6rem;font-weight:800;letter-spacing:-0.03em;line-height:1;color:var(--text)}
-.stat-label{margin-top:8px;font-size:0.82rem;color:var(--text-secondary);font-weight:550}
+/* Stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:44px}
+.stat{background:var(--card);padding:24px 14px 18px;text-align:center}
+.stat-num{font-size:2.4rem;font-weight:800;letter-spacing:-.03em;line-height:1;color:var(--text)}
+.stat-label{margin-top:8px;font-size:.8rem;color:var(--muted);font-weight:550}
 
-/* ===== Section ===== */
-section.block{padding:74px 0}
-section.block.alt{background:var(--bg-warm)}
-.section-header{margin-bottom:38px}
-.section-label{display:inline-block;font-size:0.78rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
-.section-header h2{font-family:var(--font-serif);font-size:clamp(1.7rem,3.4vw,2.4rem);letter-spacing:-0.02em;line-height:1.2}
-.section-desc{margin-top:10px;color:var(--text-secondary);font-size:0.95rem;max-width:640px}
-.section-header.center{text-align:center}
-.section-header.center .section-desc{margin-left:auto;margin-right:auto}
+/* Section（无独立背景色） */
+section.block{padding:72px 0}
+.section-header{margin-bottom:34px}
+.section-label{display:inline-block;font-size:.76rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.section-header h2{font-family:var(--serif);font-size:clamp(1.6rem,3.2vw,2.3rem);letter-spacing:-.02em;line-height:1.2}
 
-/* ===== Scenario cards ===== */
-.cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.card{padding:26px 22px;border-radius:var(--radius);background:var(--bg-card);border:1px solid var(--border-light);transition:all var(--transition)}
+/* 使用场景横排列表 */
+.scenario-list{display:grid;gap:10px;margin-top:8px}
+.scenario{display:grid;grid-template-columns:42px minmax(150px,.6fr) minmax(0,2.8fr) auto;align-items:center;gap:16px;padding:16px 20px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);transition:all var(--transition)}
+.scenario:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,0.04)}
+.scenario-icon{width:40px;height:40px;display:grid;place-items:center;background:var(--bg-warm);border-radius:10px;font-size:1.1rem}
+.scenario h3,.scenario p{margin:0}
+.scenario h3{font-size:.95rem;font-weight:700}
+.scenario p{color:var(--muted);font-size:.9rem}
+.tag{color:var(--accent);font-size:.72rem;font-weight:700;white-space:nowrap}
+
+/* 核心亮点卡片 3 列 */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{display:flex;flex-direction:column;padding:24px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);transition:all var(--transition)}
 .card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,0.05)}
-.card-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.15rem;margin-bottom:15px;background:var(--bg-warm)}
-html.dark .card-icon{background:var(--bg-code)}
-.card h3{font-size:0.98rem;font-weight:700;margin-bottom:6px}
-.card p{font-size:0.85rem;color:var(--text-secondary);line-height:1.7}
-.card-tag{display:inline-block;margin-top:12px;padding:3px 10px;border-radius:4px;font-size:0.68rem;font-weight:600;background:var(--accent-bg);color:var(--accent)}
+.card-icon{width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:10px;background:var(--bg-warm);font-size:1.15rem;margin-bottom:15px}
+.card h3{margin:0 0 7px;font-size:.98rem;font-weight:700}
+.card p{margin:0;color:var(--muted);font-size:.88rem;line-height:1.7}
+.card-tag{display:inline-block;margin-top:auto;padding-top:14px;color:var(--accent);font-size:.72rem;font-weight:700}
 
-/* ===== Highlights ===== */
-.hl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.hl{display:flex;flex-direction:column;padding:26px 22px;border-radius:var(--radius);background:var(--bg-card);border:1px solid var(--border-light);transition:all var(--transition)}
-.hl:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,0.05)}
-.hl .card-icon{margin-bottom:14px}
-.hl h3{font-size:0.98rem;font-weight:700;margin-bottom:7px}
-.hl p{font-size:0.85rem;color:var(--text-secondary);line-height:1.7}
-.hl-detail{margin-top:16px;padding:9px 12px;border-radius:var(--radius-sm);background:var(--accent-bg);font-size:0.78rem;color:var(--accent);font-weight:600}
-
-/* ===== Comparison table ===== */
+/* 对比表 */
 .table-wrap{overflow-x:auto}
-.comparison-table{width:100%;border-collapse:separate;border-spacing:0;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border-light)}
-.comparison-table th,.comparison-table td{padding:13px 16px;text-align:left;font-size:0.84rem;border-bottom:1px solid var(--border-light)}
-.comparison-table thead th{background:var(--bg-warm);font-weight:650;font-size:0.74rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-secondary)}
-html.dark .comparison-table thead th{background:var(--bg-code)}
+.comparison-table{width:100%;border-collapse:separate;border-spacing:0;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border)}
+.comparison-table th,.comparison-table td{padding:13px 16px;text-align:left;font-size:.84rem;border-bottom:1px solid var(--border)}
+.comparison-table thead th{background:var(--bg-warm);font-weight:650;font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
 .comparison-table thead th:nth-child(2){color:var(--accent)}
-.comparison-table tbody tr{background:var(--bg-card);transition:background var(--transition)}
+.comparison-table tbody tr{background:var(--card);transition:background var(--transition)}
 .comparison-table tbody tr:hover{background:var(--bg-warm)}
 .comparison-table tbody tr:last-child td{border-bottom:none}
 .comparison-table td:first-child{font-weight:600}
@@ -108,36 +116,41 @@ html.dark .comparison-table thead th{background:var(--bg-code)}
 .cross{color:var(--red)}
 .partial{color:#c9a44e}
 
-/* ===== Workflow ===== */
-.workflow-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-.workflow-card{padding:22px;border-left:4px solid var(--accent);border-radius:0 var(--radius) var(--radius) 0;background:var(--bg-card);border-top:1px solid var(--border-light);border-right:1px solid var(--border-light);border-bottom:1px solid var(--border-light);transition:all var(--transition)}
-.workflow-card:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,0.04)}
-.workflow-card h3{margin:0 0 8px;font-size:0.98rem}
-.workflow-card p{margin:0;color:var(--text-secondary);font-size:0.87rem;line-height:1.7}
-.workflow-card .trigger{display:block;margin-top:12px;color:var(--accent);font-size:0.76rem;font-weight:700;font-family:var(--font-mono)}
+/* 工作流：左色条两列 */
+.workflow{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.workflow-card{padding:22px;border-left:4px solid var(--accent);border-radius:0 var(--radius) var(--radius) 0;background:var(--card);transition:all var(--transition)}
+.workflow-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,0.04)}
+.workflow-card h3{margin:0 0 8px;font-size:.98rem}
+.workflow-card p{margin:0;color:var(--muted);font-size:.9rem;line-height:1.7}
+.workflow-card .trigger{display:block;margin-top:12px;color:var(--accent);font-size:.76rem;font-weight:700;font-family:'SF Mono','Fira Code',monospace}
 
-/* ===== CTA ===== */
-.cta-section{padding:90px 0;text-align:center;background:var(--bg)}
-.cta-section h2{font-family:var(--font-serif);font-size:clamp(1.9rem,4vw,2.9rem);letter-spacing:-0.02em;line-height:1.2}
-.cta-section p{max-width:600px;margin:14px auto 0;color:var(--text-secondary);font-size:1rem}
+/* CTA */
+.cta-section{padding:100px 0;text-align:center}
+.cta-section h2{font-family:var(--serif);font-size:clamp(2.4rem,4.5vw,3.2rem);letter-spacing:-.02em;line-height:1.15}
+.cta-section p{max-width:620px;margin:14px auto 0;color:var(--muted);font-size:1rem}
+.cta-section .actions{justify-content:center}
 
-/* ===== Footer ===== */
-footer{background:var(--bg);padding:42px 0 48px}
+/* Footer 融入弥散背景 */
+footer{padding:40px 0 48px}
 .footer-badges{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
 
-/* ===== Responsive ===== */
+/* 响应式 */
 @media(max-width:768px){
   .stats{grid-template-columns:repeat(2,1fr)}
-  .cards-grid{grid-template-columns:1fr}
-  .hl-grid{grid-template-columns:1fr}
-  .workflow-grid{grid-template-columns:1fr}
+  .scenario{grid-template-columns:42px 1fr;grid-auto-rows:auto}
+  .scenario p{grid-column:2}
+  .tag{grid-column:2}
+  .cards{grid-template-columns:1fr}
+  .workflow{grid-template-columns:1fr}
   .nav-links{display:none}
-  .hero{padding:110px 0 64px}
-  section.block{padding:56px 0}
+  .hero{padding:110px 0 56px}
+  section.block{padding:54px 0}
 }
 </style>
 </head>
 <body>
+
+<div class="bg-layer"></div>
 
 <nav><div class="nav-inner">
   <div class="nav-logo">🔍 mu-ebook-scout · <span data-en="Ebook Finder" data-zh="电子书下载器">电子书下载器</span></div>
@@ -155,12 +168,12 @@ footer{background:var(--bg);padding:42px 0 48px}
 </div></nav>
 
 <section class="hero"><div class="container">
-  <div class="hero-badge"><span class="dot"></span><span data-en="v1.4.0 · Open Source" data-zh="v1.4.0 · 开源发布">v1.4.0 · 开源发布</span></div>
+  <p class="hero-badge"><span class="dot"></span><span data-en="v1.4.0 · Open Source" data-zh="v1.4.0 · 开源发布">v1.4.0 · 开源发布</span></p>
   <h1><span data-en="Stop <em>digging through ten sites</em>.<br><em>One search</em>, ten legal sources." data-zh="别再<em>十个网站挨个翻</em>。<br><em>一次搜索</em>，十个合法书源。">别再<em>十个网站挨个翻</em>。<br><em>一次搜索</em>，十个合法书源。</span></h1>
   <p class="hero-sub"><span data-en="A multi-source search tool for public-domain and open-license ebooks in Chinese and English — a search guide that surfaces ranked links, and downloads only when you explicitly ask. CLI, MCP server, and Agent Skill shell: one core, three front-ends." data-zh="中英双语公版与开放授权电子书的多源搜索工具——只帮你找到并排序合法链接，你明确要求才下载。CLI、MCP server、Agent Skill 壳三种形态，一个内核，三个入口。">中英双语公版与开放授权电子书的多源搜索工具——只帮你找到并排序合法链接，你明确要求才下载。CLI、MCP server、Agent Skill 壳三种形态，一个内核，三个入口。</span></p>
-  <div class="hero-actions">
-    <a href="https://github.com/muippt/mu-ebook-scout" class="btn btn-primary" target="_blank"><span data-en="⭐ Star on GitHub" data-zh="⭐ GitHub 仓库">⭐ GitHub 仓库</span></a>
-    <a href="https://github.com/muippt/mu-ebook-scout/archive/refs/tags/v1.4.0.zip" class="btn btn-secondary" target="_blank"><span data-en="📦 Download ZIP" data-zh="📦 下载 ZIP">📦 下载 ZIP</span></a>
+  <div class="actions">
+    <a class="btn btn-primary" href="https://github.com/muippt/mu-ebook-scout" target="_blank"><span data-en="⭐ Star on GitHub" data-zh="⭐ GitHub 仓库">⭐ GitHub 仓库</span></a>
+    <a class="btn" href="https://github.com/muippt/mu-ebook-scout/archive/refs/tags/v1.4.0.zip" target="_blank"><span data-en="⏬ Download ZIP" data-zh="⏬ 下载 ZIP">⏬ 下载 ZIP</span></a>
   </div>
   <div class="stats">
     <div class="stat"><div class="stat-num">10</div><div class="stat-label"><span data-en="🌐 Built-in sources" data-zh="🌐 内置书源">🌐 内置书源</span></div></div>
@@ -170,98 +183,98 @@ footer{background:var(--bg);padding:42px 0 48px}
   </div>
 </div></section>
 
-<section class="block alt" id="scenarios"><div class="container">
-  <div class="section-header center">
+<section class="block" id="scenarios"><div class="container">
+  <div class="section-header">
     <div class="section-label"><span data-en="💡 Use Cases" data-zh="💡 使用场景">💡 使用场景</span></div>
     <h2><span data-en="What can it do for you?" data-zh="它能帮你做什么？">它能帮你做什么？</span></h2>
   </div>
-  <div class="cards-grid">
-    <div class="card">
-      <div class="card-icon">📚</div>
+  <div class="scenario-list">
+    <article class="scenario">
+      <div class="scenario-icon">📚</div>
       <h3><span data-en="Public-domain classics" data-zh="公版经典一键找">公版经典一键找</span></h3>
       <p><span data-en="Search 西游记 / Journey to the West and get direct EPUB/TXT downloads from Wenshuoge, Daizhige and Project Gutenberg in one go." data-zh="搜「西游记」，文硕阁、殆知阁、Project Gutenberg 的 EPUB/TXT 直链一次到手。">搜「西游记」，文硕阁、殆知阁、Project Gutenberg 的 EPUB/TXT 直链一次到手。</span></p>
-      <div class="card-tag"><span data-en="EPUB / TXT" data-zh="EPUB / TXT">EPUB / TXT</span></div>
-    </div>
-    <div class="card">
-      <div class="card-icon">🀄</div>
+      <div class="tag" data-en="EPUB / TXT" data-zh="EPUB / TXT">EPUB / TXT</div>
+    </article>
+    <article class="scenario">
+      <div class="scenario-icon">🀄</div>
       <h3><span data-en="Ancient Chinese texts" data-zh="古籍全覆盖">古籍全覆盖</span></h3>
       <p><span data-en="Pre-Qin philosophy from ctext.org, the Buddhist canon from CBETA (traditional/simplified auto-converted), Wikisource full texts." data-zh="ctext.org 先秦两汉典籍、CBETA 佛藏（繁简自动转换）、维基文库全文。">ctext.org 先秦两汉典籍、CBETA 佛藏（繁简自动转换）、维基文库全文。</span></p>
-      <div class="card-tag"><span data-en="Read online" data-zh="在线全文">在线全文</span></div>
-    </div>
-    <div class="card">
-      <div class="card-icon">🔍</div>
+      <div class="tag" data-en="Read online" data-zh="在线全文">在线全文</div>
+    </article>
+    <article class="scenario">
+      <div class="scenario-icon">🔍</div>
       <h3><span data-en="Modern bestsellers" data-zh="现代畅销书">现代畅销书</span></h3>
       <p><span data-en="The GitHub book-list source scans the whole of GitHub for community netdisk directories and hands you ctfile/lanzou links with extraction codes." data-zh="GitHub 书单源全站扫描社区网盘书目录，连提取码一起给你城通/蓝奏链接。">GitHub 书单源全站扫描社区网盘书目录，连提取码一起给你城通/蓝奏链接。</span></p>
-      <div class="card-tag"><span data-en="Links only" data-zh="仅链接">仅链接</span></div>
-    </div>
-    <div class="card">
-      <div class="card-icon">🤖</div>
+      <div class="tag" data-en="Links only" data-zh="仅链接">仅链接</div>
+    </article>
+    <article class="scenario">
+      <div class="scenario-icon">🤖</div>
       <h3><span data-en="Agent-native" data-zh="Agent 原生">Agent 原生</span></h3>
       <p><span data-en="MCP server for agent clients, plus an Agent Skill shell with a search-then-confirm workflow." data-zh="MCP server 供 Agent 客户端调用，另有「先搜索、确认后下载」的 Agent Skill 壳。">MCP server 供 Agent 客户端调用，另有「先搜索、确认后下载」的 Agent Skill 壳。</span></p>
-      <div class="card-tag"><span data-en="MCP + Skill" data-zh="MCP + Skill">MCP + Skill</span></div>
-    </div>
-    <div class="card">
-      <div class="card-icon">🎧</div>
+      <div class="tag" data-en="MCP + Skill" data-zh="MCP + Skill">MCP + Skill</div>
+    </article>
+    <article class="scenario">
+      <div class="scenario-icon">🎧</div>
       <h3><span data-en="Free audiobooks" data-zh="免费有声书">免费有声书</span></h3>
       <p><span data-en="20,000+ LibriVox public-domain recordings (MP3/M4B) appear in the same ranked results as ebooks." data-zh="20,000+ 部 LibriVox 公版有声书（MP3/M4B）与电子书同榜呈现。">20,000+ 部 LibriVox 公版有声书（MP3/M4B）与电子书同榜呈现。</span></p>
-      <div class="card-tag"><span data-en="MP3 / M4B" data-zh="MP3 / M4B">MP3 / M4B</span></div>
-    </div>
-    <div class="card">
-      <div class="card-icon">🧭</div>
+      <div class="tag" data-en="MP3 / M4B" data-zh="MP3 / M4B">MP3 / M4B</div>
+    </article>
+    <article class="scenario">
+      <div class="scenario-icon">🧭</div>
       <h3><span data-en="Never empty-handed" data-zh="绝不空手而归">绝不空手而归</span></h3>
       <p><span data-en="Zero hits still returns manual entry points and legitimate borrow/purchase channels, not a bare &quot;not found&quot;." data-zh="零命中也返回手动入口和合法借阅/购买渠道，而不是一句「未找到」。">零命中也返回手动入口和合法借阅/购买渠道，而不是一句「未找到」。</span></p>
-      <div class="card-tag"><span data-en="Always an answer" data-zh="总有答案">总有答案</span></div>
-    </div>
+      <div class="tag" data-en="Always an answer" data-zh="总有答案">总有答案</div>
+    </article>
   </div>
 </div></section>
 
 <section class="block" id="highlights"><div class="container">
-  <div class="section-header center">
+  <div class="section-header">
     <div class="section-label"><span data-en="✨ Highlights" data-zh="✨ 核心亮点">✨ 核心亮点</span></div>
     <h2><span data-en="Why mu-ebook-scout?" data-zh="为什么选 mu-ebook-scout？">为什么选 mu-ebook-scout？</span></h2>
   </div>
-  <div class="hl-grid">
-    <div class="hl">
+  <div class="cards">
+    <article class="card">
       <div class="card-icon">🌐</div>
       <h3><span data-en="Ten Built-in Sources, Parallel Search" data-zh="十个内置源，并行搜索">十个内置源，并行搜索</span></h3>
       <p><span data-en="Project Gutenberg, Open Library, Wikisource (zh/en), Standard Ebooks, CBETA, ctext.org, LibriVox, Google Books, and two Chinese ancient-text GitHub mirrors — searched in parallel with graceful degradation." data-zh="Project Gutenberg、Open Library、维基文库（中/英）、Standard Ebooks、CBETA、ctext.org、LibriVox、Google Books，加两个中文古籍 GitHub 镜像——并行搜索，优雅降级。">Project Gutenberg、Open Library、维基文库（中/英）、Standard Ebooks、CBETA、ctext.org、LibriVox、Google Books，加两个中文古籍 GitHub 镜像——并行搜索，优雅降级。</span></p>
-      <div class="hl-detail"><span data-en="A failing source never kills the query" data-zh="单源失败绝不拖垮查询">单源失败绝不拖垮查询</span></div>
-    </div>
-    <div class="hl">
+      <div class="card-tag"><span data-en="A failing source never kills the query" data-zh="单源失败绝不拖垮查询">单源失败绝不拖垮查询</span></div>
+    </article>
+    <article class="card">
       <div class="card-icon">🐙</div>
       <h3><span data-en="Full-GitHub Book-List Search" data-zh="GitHub 全量书单搜索">GitHub 全量书单搜索</span></h3>
       <p><span data-en="Searches all of GitHub via the code-search API for community book-list markdown files pointing to netdisk downloads; curated seed repositories as an anonymous fallback." data-zh="通过 GitHub 代码搜索 API 检索全站社区书单 Markdown，命中指向网盘下载的目录行；无 Token 时降级为种子仓库直扫。">通过 GitHub 代码搜索 API 检索全站社区书单 Markdown，命中指向网盘下载的目录行；无 Token 时降级为种子仓库直扫。</span></p>
-      <div class="hl-detail"><span data-en="Netdisk hits are strictly link-only" data-zh="网盘结果严格只给链接">网盘结果严格只给链接</span></div>
-    </div>
-    <div class="hl">
+      <div class="card-tag"><span data-en="Netdisk hits are strictly link-only" data-zh="网盘结果严格只给链接">网盘结果严格只给链接</span></div>
+    </article>
+    <article class="card">
       <div class="card-icon">🥇</div>
       <h3><span data-en="Confidence Ranking" data-zh="置信度排序">置信度排序</span></h3>
       <p><span data-en="Results are scored 0–100 by title/author match, availability, and format, so the best candidates surface first." data-zh="按书名/作者匹配度、可获得性、格式计算 0–100 分，最合适的候选排最前。">按书名/作者匹配度、可获得性、格式计算 0–100 分，最合适的候选排最前。</span></p>
-      <div class="hl-detail"><span data-en="No manual filtering across ten sources" data-zh="无需在十个源之间人工翻找">无需在十个源之间人工翻找</span></div>
-    </div>
-    <div class="hl">
+      <div class="card-tag"><span data-en="No manual filtering across ten sources" data-zh="无需在十个源之间人工翻找">无需在十个源之间人工翻找</span></div>
+    </article>
+    <article class="card">
       <div class="card-icon">🔧</div>
       <h3><span data-en="Three Front-Ends, One Core" data-zh="三形态共享一个内核">三形态共享一个内核</span></h3>
       <p><span data-en="CLI (bookscout search / get), MCP server (pip install mu-ebook-scout[mcp]), and an Agent Skill shell — pick whichever fits your workflow." data-zh="CLI（bookscout search / get）、MCP server（pip install mu-ebook-scout[mcp]）、Agent Skill 壳——哪种顺手用哪种。">CLI（bookscout search / get）、MCP server（pip install mu-ebook-scout[mcp]）、Agent Skill 壳——哪种顺手用哪种。</span></p>
-      <div class="hl-detail"><span data-en="One core engine, three front-ends" data-zh="一个内核，三个入口">一个内核，三个入口</span></div>
-    </div>
-    <div class="hl">
+      <div class="card-tag"><span data-en="One core engine, three front-ends" data-zh="一个内核，三个入口">一个内核，三个入口</span></div>
+    </article>
+    <article class="card">
       <div class="card-icon">🧩</div>
       <h3><span data-en="Custom Sources (Prowlarr-style)" data-zh="custom 源机制（Prowlarr 模式）">custom 源机制（Prowlarr 模式）</span></h3>
       <p><span data-en="Add your own sources in a config file. Custom sources are strictly pass-through: results are links you open yourself, never proxied downloads." data-zh="在配置文件里添加自己的书源。custom 源严格只透传：结果只给链接，由你自己在浏览器打开，绝不代理下载。">在配置文件里添加自己的书源。custom 源严格只透传：结果只给链接，由你自己在浏览器打开，绝不代理下载。</span></p>
-      <div class="hl-detail"><span data-en="Your sources, your browser" data-zh="你的书源，你的浏览器">你的书源，你的浏览器</span></div>
-    </div>
-    <div class="hl">
+      <div class="card-tag"><span data-en="Your sources, your browser" data-zh="你的书源，你的浏览器">你的书源，你的浏览器</span></div>
+    </article>
+    <article class="card">
       <div class="card-icon">🛡️</div>
       <h3><span data-en="Explicit, Verified Downloads" data-zh="显式下载 + 魔数校验">显式下载 + 魔数校验</span></h3>
       <p><span data-en="Nothing is downloaded until you say so. Every download goes through a host allowlist, a 100 MB cap, and magic-number verification before being reported as success." data-zh="你不点头就不下载。每次下载经过 host 白名单、100MB 上限、魔数校验三道关卡，通过才算成功。">你不点头就不下载。每次下载经过 host 白名单、100MB 上限、魔数校验三道关卡，通过才算成功。</span></p>
-      <div class="hl-detail"><span data-en="Verified, or reported as failed" data-zh="通过校验才算成功">通过校验才算成功</span></div>
-    </div>
+      <div class="card-tag"><span data-en="Verified, or reported as failed" data-zh="通过校验才算成功">通过校验才算成功</span></div>
+    </article>
   </div>
 </div></section>
 
-<section class="block alt" id="comparison"><div class="container">
-  <div class="section-header center">
+<section class="block" id="comparison"><div class="container">
+  <div class="section-header">
     <div class="section-label"><span data-en="📌 Comparison" data-zh="📌 工具对比">📌 工具对比</span></div>
     <h2><span data-en="Against the alternatives" data-zh="与同类工具对比">与同类工具对比</span></h2>
   </div>
@@ -316,40 +329,40 @@ footer{background:var(--bg);padding:42px 0 48px}
 </div></section>
 
 <section class="block" id="workflows"><div class="container">
-  <div class="section-header center">
+  <div class="section-header">
     <div class="section-label"><span data-en="🚀 Workflows" data-zh="🚀 工作流">🚀 工作流</span></div>
     <h2><span data-en="Four ways to use it" data-zh="四种使用方式">四种使用方式</span></h2>
   </div>
-  <div class="workflow-grid">
-    <div class="workflow-card">
+  <div class="workflow">
+    <article class="workflow-card">
       <h3><span data-en="Search &amp; rank" data-zh="搜索与排序">搜索与排序</span></h3>
       <p><span data-en="Find a book across all 10 sources, ranked by confidence and grouped by availability." data-zh="十源并行找一本书，按置信度排序、按可获得性分组。">十源并行找一本书，按置信度排序、按可获得性分组。</span></p>
-      <span class="trigger">bookscout search "title"</span>
-    </div>
-    <div class="workflow-card">
+      <span class="trigger" data-en="TRIGGER: bookscout search &quot;title&quot;" data-zh="触发：bookscout search &quot;书名&quot;">触发：bookscout search "书名"</span>
+    </article>
+    <article class="workflow-card">
       <h3><span data-en="Verified download" data-zh="校验下载">校验下载</span></h3>
       <p><span data-en="Fetch one file you picked — host allowlist, 100 MB cap, magic-number check." data-zh="下载你选定的一条——host 白名单、100MB 上限、魔数校验。">下载你选定的一条——host 白名单、100MB 上限、魔数校验。</span></p>
-      <span class="trigger">bookscout get N</span>
-    </div>
-    <div class="workflow-card">
+      <span class="trigger" data-en="TRIGGER: bookscout get N" data-zh="触发：bookscout get N">触发：bookscout get N</span>
+    </article>
+    <article class="workflow-card">
       <h3><span data-en="MCP integration" data-zh="MCP 集成">MCP 集成</span></h3>
       <p><span data-en="Agent-driven search without a shell: two tools (search, get) behind your MCP client config." data-zh="Agent 免终端调用搜索：MCP 客户端配置后即得 search、get 两个工具。">Agent 免终端调用搜索：MCP 客户端配置后即得 search、get 两个工具。</span></p>
-      <span class="trigger">mcpServers · bookscout.mcp_server</span>
-    </div>
-    <div class="workflow-card">
+      <span class="trigger" data-en="TRIGGER: mcpServers · bookscout.mcp_server" data-zh="触发：mcpServers · bookscout.mcp_server">触发：mcpServers · bookscout.mcp_server</span>
+    </article>
+    <article class="workflow-card">
       <h3><span data-en="Agent Skill mode" data-zh="Agent Skill 模式">Agent Skill 模式</span></h3>
       <p><span data-en="Conversational search-then-confirm workflow via the Agent Skill shell." data-zh="对话式「先搜索、确认后下载」工作流，由 Agent Skill 壳封装。">对话式「先搜索、确认后下载」工作流，由 Agent Skill 壳封装。</span></p>
-      <span class="trigger">skills/mu-ebook-scout/SKILL.md</span>
-    </div>
+      <span class="trigger" data-en="TRIGGER: skills/mu-ebook-scout/SKILL.md" data-zh="触发：skills/mu-ebook-scout/SKILL.md">触发：skills/mu-ebook-scout/SKILL.md</span>
+    </article>
   </div>
 </div></section>
 
 <section class="cta-section"><div class="container">
   <h2><span data-en="Stop <em>hunting</em>.<br>Start <em>finding</em>." data-zh="别再<em>大海捞针</em>。<br><em>一键直达</em>。">别再<em>大海捞针</em>。<br><em>一键直达</em>。</span></h2>
   <p><span data-en="One search across ten legal book sources — never empty-handed." data-zh="一次搜索十个合法书源——绝不空手而归。">一次搜索十个合法书源——绝不空手而归。</span></p>
-  <div class="hero-actions">
-    <a href="https://github.com/muippt/mu-ebook-scout/archive/refs/tags/v1.4.0.zip" class="btn btn-primary" target="_blank"><span data-en="📦 Download ZIP" data-zh="📦 下载 ZIP">📦 下载 ZIP</span></a>
-    <a href="https://muippt.github.io/mu-skill-hub/" class="btn btn-secondary" target="_blank"><span data-en="📚 Browse the Skill Hub" data-zh="📚 浏览 Skill 合集">📚 浏览 Skill 合集</span></a>
+  <div class="actions">
+    <a class="btn btn-primary" href="https://github.com/muippt/mu-ebook-scout/archive/refs/tags/v1.4.0.zip" target="_blank"><span data-en="⏬ Download ZIP" data-zh="⏬ 下载 ZIP">⏬ 下载 ZIP</span></a>
+    <a class="btn" href="https://muippt.github.io/mu-skill-hub/" target="_blank"><span data-en="📚 Browse the Skill Hub" data-zh="📚 浏览 Skill 合集">📚 浏览 Skill 合集</span></a>
   </div>
 </div></section>
 
@@ -364,7 +377,7 @@ footer{background:var(--bg);padding:42px 0 48px}
 </div></footer>
 
 <script>
-// Language toggle — first load forced to Chinese, no localStorage
+// 语言切换 — 首次加载强制中文，不读写 localStorage
 (function(){
   var btn=document.getElementById('langToggle');
   var lang='zh';
@@ -383,7 +396,7 @@ footer{background:var(--bg);padding:42px 0 48px}
   btn.addEventListener('click',function(){applyLang(lang==='zh'?'en':'zh')});
 })();
 
-// Theme toggle — first load forced light, no localStorage
+// 主题切换 — 首次加载强制浅色，不读写 localStorage
 (function(){
   var btn=document.getElementById('themeToggle');
   function setTheme(dark){
