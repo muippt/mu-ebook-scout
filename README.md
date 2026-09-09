@@ -24,7 +24,7 @@
 - 📚 **Public-domain classics** — search 西游记 / Journey to the West and get direct EPUB/TXT downloads from Wenshuoge, Daizhige and Project Gutenberg in one go
 - 🀄 **Ancient Chinese texts** — Pre-Qin philosophy from ctext.org, the Buddhist canon from CBETA (traditional/simplified auto-converted), Wikisource full texts
 - 🔍 **Modern bestsellers** — the GitHub book-list source scans the whole of GitHub for community-maintained netdisk directories and hands you ctfile/lanzou links with extraction codes
-- 🤖 **Agent-native** — MCP server for agent clients, plus a Claude-style Agent Skill shell with a search-then-confirm workflow
+- 🤖 **Agent-native** — MCP server for agent clients, plus an Agent Skill shell with a search-then-confirm workflow
 - 🛡️ **Verified downloads** — nothing is fetched until you say so; downloaded files are magic-number-checked before being reported as success
 - 🎧 **Free audiobooks** — 20,000+ LibriVox public-domain recordings (MP3/M4B) in the same ranked results
 - 🧭 **Never empty-handed** — zero hits still returns manual entry points and legitimate borrow/purchase channels, not a bare "not found"
