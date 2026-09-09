@@ -53,9 +53,9 @@ def _build_request(url: str, user_agent: str = "") -> urllib.request.Request:
     headers = {"User-Agent": user_agent or USER_AGENT}
     host = urllib.parse.urlparse(url).hostname or ""
     if host in _GITHUB_HOSTS:
-        token = github_token()
-        if token:
-            headers["Authorization"] = f"Bearer {token}"
+        gh_auth = github_token()
+        if gh_auth:
+            headers["Authorization"] = f"Bearer {gh_auth}"
     return urllib.request.Request(url, headers=headers)
 
 
