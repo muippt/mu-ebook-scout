@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+.venv-run/
+
+# bookscout runtime / session data
+.bookscout/
+
+# Editors / OS
+.idea/
+.vscode/
+.DS_Store

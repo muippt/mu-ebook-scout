@@ -1,0 +1,57 @@
+THIRD-PARTY SOURCE LICENSES
+===========================
+
+mu-ebook-scout aggregates *links* from the book sources listed below.
+The project itself distributes no book content; it only indexes and
+surfaces links produced by each source's public interface. All
+copyrights for the indexed material belong to their respective owners.
+
+Source-by-source license notes
+------------------------------
+
+Project Gutenberg (accessed via the Gutendex API)
+    Most ebooks are in the public domain in the United States. Some
+    items carry specific license terms stated on their individual
+    Gutenberg pages. Content remains the property of Project Gutenberg
+    and its terms of use apply.
+
+Open Library / Internet Archive (archive.org)
+    Catalog metadata is made available under CC BY-SA / ODbL. Public-
+    domain scans are free to download; lending items are subject to
+    controlled digital lending and require a free account. All rights
+    reserved by the Internet Archive where applicable.
+
+Wikisource (zh.wikisource.org, en.wikisource.org)
+    Text is licensed under Creative Commons Attribution-ShareAlike 4.0
+    (CC BY-SA 4.0), with attribution requirements stated on each page.
+    Individual embedded works may carry their own terms.
+
+Standard Ebooks (standardebooks.org)
+    Releases are dedicated to the public domain; source files carry
+    their own release notes. The Standard Ebooks name and site design
+    remain the property of Standard Ebooks.
+
+CBETA (cbeta.org)
+    The Chinese Buddhist canon materials are licensed under Creative
+    Commons Attribution-NonCommercial-ShareAlike 4.0 (CC BY-NC-SA 4.0).
+    NON-COMMERCIAL use only; attribution and share-alike required.
+
+wenshuoge (github.com/zhpelo/wenshuoge)
+    A public repository of classical Chinese texts. The texts
+    themselves are public-domain ancient works; repository structure
+    and any editorial additions remain with their author.
+
+daizhigev20 (github.com/garychowcmu/daizhigev20)
+    A public-domain corpus of classical Chinese texts. The texts
+    themselves are ancient public-domain works; the repository
+    compilation remains with its maintainer.
+
+Disclaimer
+----------
+
+mu-ebook-scout is a search guide: it indexes public-domain and openly
+licensed material, passes through user-configured custom source links
+as-is, and downloads files only on explicit user request. Compliance
+with each source's license terms, and with the user's local law, is
+the responsibility of the user. This project is not affiliated with
+any of the sources listed above.
