@@ -14,9 +14,9 @@
 [![微信公众号](https://img.shields.io/badge/muippt-07C160?logo=wechat&logoColor=white)](https://mp.weixin.qq.com/s/YLtXENt_7WzO2DgJCFUtPA)
 [![小红书](https://img.shields.io/badge/muippt-FF2442?logo=xiaohongshu&logoColor=white)](https://xhslink.com/m/ESxtgUNMdl)
 [![书籍](https://img.shields.io/badge/书籍-图解团队管理-BBDDE5?logo=bookstack&logoColor=white)](https://item.m.jd.com/product/14547345.html)
-[![mu-skill集合](https://img.shields.io/badge/mu--skillhub-9E95B7?logo=refinedgithub&logoColor=white)](https://muippt.github.io/mu-skill-hub/)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.4.0-blue)](pyproject.toml)
+[![mu-skill集合](https://img.shields.io/badge/mu--skill集合-9E95B7?logo=refinedgithub&logoColor=white)](https://muippt.github.io/mu-skill-hub/)
+[![License](https://img.shields.io/github/license/muippt/mu-ebook-scout)](LICENSE)
+[![Version](https://img.shields.io/github/v/release/muippt/mu-ebook-scout)](https://github.com/muippt/mu-ebook-scout/releases)
 [![Stars](https://img.shields.io/github/stars/muippt/mu-ebook-scout)](https://github.com/muippt/mu-ebook-scout/stargazers)
 
 ### 💡 使用场景示例
@@ -35,6 +35,8 @@
 
 #### 🌐 十个内置源，并行搜索
 
+想找一本公版经典，却不想在十个网站之间挨个打开、挨个搜？一次查询就把下表的书源并行问一遍，结果排好序递到你面前；个别源临时限流或失联会被跳过并如实上报，绝不拖垮整次搜索。先发一句「帮我找《西游记》」试试水。
+
 | 书源 | 覆盖范围 | 许可 |
 | --- | --- | --- |
 | Project Gutenberg（Gutendex API） | 75,000+ 部英文/西方经典 | 公有领域 |
@@ -48,41 +50,39 @@
 | 文硕阁 / 殆知阁（GitHub 镜像） | 中文古籍语料 | 公版古籍 |
 | GitHub 书单索引（全量代码搜索） | 社区网盘书目录 | 仅链接 |
 
-优雅降级：失败或限流的书源被跳过并如实上报，绝不拖垮整次查询。
-
 #### 🐙 GitHub 全量书单搜索
 
-`github_lists` 源不限于公版仓库：通过 GitHub 代码搜索 API（建议配 Token）检索全站社区书单 Markdown，命中指向网盘下载的目录行；无 Token 时降级为种子仓库直扫。网盘结果严格只给链接：下载页由你自己打开，工具不碰网盘。
+公版之外的现代书，线索常散落在社区维护的书单笔记里。它替你把 GitHub 全站的书单翻一遍，命中网盘目录时连提取码一起给你——但严格只给链接，下载页由你亲手打开，工具不碰网盘。
 
 #### 🥇 置信度排序
 
-按书名/作者匹配度、可获得性、格式计算 0–100 分，最合适的候选排最前——无需在十个源之间人工翻找。
+十个源各说各话，人工比对要翻很久。它按书名/作者匹配度、可获得性和格式给每条结果打 0–100 分，最合适的排最前——你只管从榜首看起。
 
 #### 🔧 三形态共享一个内核
 
-- **CLI**——`bookscout search "书名"` / `bookscout get N`
-- **MCP server**——`pip install mu-ebook-scout[mcp]`，两个工具（`search`、`get`），host 白名单 + 100MB 上限 + 魔数校验
-- **Agent Skill 壳**——[`skills/mu-ebook-scout/SKILL.md`](skills/mu-ebook-scout/SKILL.md) 封装 CLI，含触发条件与先搜索后确认工作流
+习惯终端就敲一条命令，用 AI Agent 就让它替你搜，搭了 MCP 客户端就当工具调用——同一个引擎，换着姿势用。安装后对 Agent 说一句「帮我找一本《西游记》的合法免费电子书」就能上手。
 
 #### 🧩 custom 源机制（Prowlarr 模式）
 
-在配置文件里添加自己的书源。custom 源严格只透传：结果只给链接，由你自己在浏览器打开，绝不代理下载。
+内置源之外还想追自己的书源？在配置里加一项就能接入。custom 源严格只透传：结果只给链接，由你自己在浏览器打开，绝不代理下载。
 
-#### 🛡️ 显式下载 + 魔数校验
+#### 🛡️ 显式下载 + 校验把关
 
-你不点头就不下载。每次下载经过 host 白名单、100MB 上限、魔数校验三道关卡，通过才算成功；零命中也返回手动入口和合法借阅/购买渠道，绝不是一句“未找到”。
+最怕工具自作主张往本地拉文件。这里一切下载都要你点头，文件到手前还要过 host 白名单、大小上限、文件头校验三道关，通过才算成功；零命中时也不让你白跑——手动入口和合法借阅/购买渠道一并奉上。
 
 ---
 
 ### 📌 与同类工具对比
 
-| | 🧭 mu-ebook-scout | book-searcher | annas-mcp | librarr |
-| --- | --- | --- | --- | --- |
-| 多源聚合 | 10 个内置源 + custom（透传） | 单一自托管索引 | 单一来源 | 单一来源 |
-| 中文书源 | 原生支持（维基文库中文、CBETA、ctext、文硕阁、殆知阁） | 取决于索引 | 有限 | 有限 |
-| Agent 接口 | MCP server + Agent Skill 壳 | 无 | MCP server | 无 |
-| 活跃度 | 活跃 | 上游不活跃 | 活跃 | 活跃 |
-| 下载行为 | 仅显式请求，魔数校验，host 白名单 | 仅索引 | 直接下载 | 直接下载 |
+| | 🧭 mu-ebook-scout | 手动逐站搜索 | 付费订阅服务（Kindle Unlimited / Everand / 微信读书 等） |
+| --- | --- | --- | --- |
+| 成本 | 免费开源 | 免费，但花时间 | 按月订阅 |
+| 覆盖范围 | 10 个公版/开放授权书源并行 + custom 透传 | 取决于你记得住多少个网站 | 授权书目为主，公版经典覆盖有限 |
+| 中文公版/古籍 | 原生支持（维基文库中文、CBETA、ctext、文硕阁、殆知阁） | 需逐站检索、逐站比对 | 较少 |
+| 使用方式 | 一句搜索，置信度排序，直接拿到文件链接 | 自己搜、自己筛、自己开下载页 | App 内在线阅读为主 |
+| Agent / 自动化 | MCP server + Agent Skill 壳，可对话式调用 | 无法自动化 | 无开放接口 |
+| 文件获取 | 按需下载 EPUB/TXT/MP3 到你自己的设备，显式确认 + 校验 | 自己逐站下载，格式质量参差 | 多数受 DRM 限制，不一定能导出文件 |
+| 许可边界 | 只索引公版/开放授权源；扩展入口仅透传链接 | 由你自行判断 | 全部正版授权，体验稳定 |
 
 ---
 

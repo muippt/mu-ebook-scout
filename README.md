@@ -15,8 +15,8 @@
 [![Xiaohongshu](https://img.shields.io/badge/muippt-FF2442?logo=xiaohongshu&logoColor=white)](https://xhslink.com/m/ESxtgUNMdl)
 [![Book](https://img.shields.io/badge/Book-Visual%20Team%20Management-BBDDE5?logo=bookstack&logoColor=white)](https://item.m.jd.com/product/14547345.html)
 [![mu-skillhub](https://img.shields.io/badge/mu--skillhub-9E95B7?logo=refinedgithub&logoColor=white)](https://muippt.github.io/mu-skill-hub/)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.4.0-blue)](pyproject.toml)
+[![License](https://img.shields.io/github/license/muippt/mu-ebook-scout)](LICENSE)
+[![Version](https://img.shields.io/github/v/release/muippt/mu-ebook-scout)](https://github.com/muippt/mu-ebook-scout/releases)
 [![Stars](https://img.shields.io/github/stars/muippt/mu-ebook-scout)](https://github.com/muippt/mu-ebook-scout/stargazers)
 
 ### 💡 Usage Examples
@@ -35,6 +35,8 @@
 
 #### 🌐 Ten Built-in Sources, Parallel Search
 
+Looking for a public-domain classic but dreading the tour across ten different websites? One query asks every source below in parallel and hands the results back ranked; a rate-limited or unreachable source is skipped and reported honestly, never fatal to the search. Try it with "Find me Journey to the West".
+
 | Source | Coverage | License |
 | --- | --- | --- |
 | Project Gutenberg (Gutendex API) | 75,000+ English/Western classics | Public domain |
@@ -48,41 +50,39 @@
 | wenshuoge / daizhigev20 (GitHub mirrors) | Chinese ancient-text corpus | Public-domain classics |
 | GitHub book-list indexes (full code search) | Community netdisk directories | Links only |
 
-Graceful degradation: a failing or rate-limited source is skipped and reported, never fatal to the query.
-
 #### 🐙 Full-GitHub Book-List Search
 
-Beyond curated public-domain repositories, the `github_lists` source searches **all of GitHub** via the code-search API (token recommended) for community book-list markdown files pointing to netdisk downloads, with curated seed repositories as an anonymous fallback. Netdisk hits are strictly link-only: you open the download page yourself — the tool never touches the netdisk.
+For modern titles beyond the public domain, the clues often live in community-maintained book-list notes. It sweeps the book lists across all of GitHub for you and, on a netdisk hit, hands you the link together with the extraction code — strictly link-only: you open the download page yourself, the tool never touches the netdisk.
 
 #### 🥇 Confidence Ranking
 
-Results are scored 0–100 by title/author match, availability, and format, so the best candidates surface first — no manual filtering across ten sources.
+Ten sources each speak their own language; comparing them by hand takes forever. Every result is scored 0–100 on title/author match, availability, and format, so the best candidates sit at the top — just start from rank one.
 
 #### 🔧 Three Front-Ends, One Core
 
-- **CLI** — `bookscout search "title"` / `bookscout get N`
-- **MCP server** — `pip install mu-ebook-scout[mcp]`, two tools (`search`, `get`), host allowlist + 100 MB cap + magic-number verification
-- **Agent Skill shell** — [`skills/mu-ebook-scout/SKILL.md`](skills/mu-ebook-scout/SKILL.md) wraps the CLI with trigger conditions and a search-then-confirm workflow
+Live in the terminal? Type a command. Prefer an AI agent? Let it search for you. Running an MCP client? Call it as a tool. Same engine, whichever posture you like — after installing, just tell your agent "find me a legal free copy of Journey to the West".
 
 #### 🧩 Custom Sources (Prowlarr-style)
 
-Add your own sources in a config file. Custom sources are strictly pass-through: results are links you open yourself, never proxied downloads.
+Want to follow sources beyond the built-in ten? Add one entry to the config. Custom sources are strictly pass-through: results are links you open yourself in your own browser, never proxied downloads.
 
 #### 🛡️ Explicit, Verified Downloads
 
-Nothing is downloaded until you say so. Every download goes through a host allowlist, a 100 MB cap, and magic-number verification before being reported as success — and a zero-hit search still returns manual entry points and legitimate borrow/purchase channels, never a bare "not found".
+The scariest tool is one that pulls files onto your disk uninvited. Here nothing downloads until you say so, and every file passes a host allowlist, a size cap, and a file-signature check before being reported as success. A zero-hit search still isn't a dead end — manual entry points and legitimate borrow/purchase channels come back with the results.
 
 ---
 
 ### 📌 Comparison
 
-| | 🧭 mu-ebook-scout | book-searcher | annas-mcp | librarr |
-| --- | --- | --- | --- | --- |
-| Multi-source aggregation | 10 sources + custom (pass-through) | Single self-hosted index | Single source | Single source |
-| Chinese sources | Native (Wikisource zh, CBETA, ctext, wenshuoge, daizhigev20) | Index-dependent | Limited | Limited |
-| Agent interface | MCP server + Agent Skill shell | None | MCP server | None |
-| Activity | Active | Upstream inactive | Active | Active |
-| Download behavior | Explicit request only, magic-number verification, host allowlist | Index only | Direct download | Direct download |
+| | 🧭 mu-ebook-scout | Manual site-by-site search | Paid subscriptions (Kindle Unlimited / Everand / WeRead etc.) |
+| --- | --- | --- | --- |
+| Cost | Free, open source | Free, but costs your time | Monthly subscription |
+| Coverage | 10 public-domain/open-license sources in parallel + custom pass-through | However many sites you can remember | Licensed catalogs; limited public-domain classics |
+| Chinese classics & public domain | Native (Wikisource zh, CBETA, ctext, wenshuoge, daizhigev20) | Search and compare site by site | Scarce |
+| How you use it | One prompt, ranked results, direct file links | Search, filter, open download pages yourself | Mostly in-app reading |
+| Agent / automation | MCP server + Agent Skill shell, conversational | Cannot be automated | No open interface |
+| File access | On-demand EPUB/TXT/MP3 downloads to your own device, explicit confirm + verification | Manual downloads, inconsistent quality | Often DRM-restricted; export not guaranteed |
+| License boundary | Indexes public-domain/open-license sources only; extended entries pass through links | Your own judgment | Fully licensed, stable experience |
 
 ---
 
@@ -137,11 +137,11 @@ Find me a legal free copy of 西游记 (Journey to the West), preferably EPUB.
 Or invoke a specific workflow:
 
 ```
-帮我把《金刚经》的公版电子书源都搜出来排个序
+Search the public-domain sources for 《金刚经》 (the Diamond Sutra) and rank them.
 ```
 
 ```
-下载第 2 条
+Download result #2.
 ```
 
 ---
