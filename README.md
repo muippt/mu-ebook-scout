@@ -9,7 +9,7 @@
 
 > **One search, ten legal book sources.** A multi-source search tool for public-domain and open-license ebooks in Chinese and English — a search guide that surfaces ranked links, and downloads a file only when you explicitly ask for it. Delivered as a CLI, an MCP server, and an Agent Skill shell: one core engine, three front-ends.
 
-[English](README.md) | **中文** | [🌐 Landing Page](https://muippt.github.io/mu-ebook-scout/)
+**English** | [中文](README_CN.md) | [🌐 Landing Page](https://muippt.github.io/mu-ebook-scout/)
 
 [![WeChat](https://img.shields.io/badge/muippt-07C160?logo=wechat&logoColor=white)](https://mp.weixin.qq.com/s/YLtXENt_7WzO2DgJCFUtPA)
 [![Xiaohongshu](https://img.shields.io/badge/muippt-FF2442?logo=xiaohongshu&logoColor=white)](https://xhslink.com/m/ESxtgUNMdl)
@@ -18,6 +18,8 @@
 [![License](https://img.shields.io/github/license/muippt/mu-ebook-scout)](LICENSE)
 [![Version](https://img.shields.io/github/v/release/muippt/mu-ebook-scout)](https://github.com/muippt/mu-ebook-scout/releases)
 [![Stars](https://img.shields.io/github/stars/muippt/mu-ebook-scout)](https://github.com/muippt/mu-ebook-scout/stargazers)
+
+---
 
 ### 💡 Usage Examples
 
@@ -172,6 +174,8 @@ If this tool saves you time, a star helps others find it:
 📚 Author of [*Visual Team Management*](https://item.m.jd.com/product/14547345.html). Clients include ByteDance, Tencent, Baidu, China Mobile, SMG, BOE…
 
 💡 [WeChat Official Account](https://mp.weixin.qq.com/s/YLtXENt_7WzO2DgJCFUtPA) / [Xiaohongshu](https://xhslink.com/m/ESxtgUNMdl): muippt
+
+---
 
 ### 📄 License & Acknowledgments
 

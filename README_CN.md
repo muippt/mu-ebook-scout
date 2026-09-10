@@ -19,6 +19,8 @@
 [![Version](https://img.shields.io/github/v/release/muippt/mu-ebook-scout)](https://github.com/muippt/mu-ebook-scout/releases)
 [![Stars](https://img.shields.io/github/stars/muippt/mu-ebook-scout)](https://github.com/muippt/mu-ebook-scout/stargazers)
 
+---
+
 ### 💡 使用场景示例
 
 - 📚 **公版经典一键找**——搜「西游记」，文硕阁、殆知阁、Project Gutenberg 的 EPUB/TXT 直链一次到手
@@ -172,6 +174,8 @@ git clone https://github.com/muippt/mu-ebook-scout.git ~/.claude/skills/mu-ebook
 📚 著有[《图解团队管理》](https://item.m.jd.com/product/14547345.html)，服务客户有字节跳动、腾讯、百度、中国移动、SMG、BOE…
 
 💡 [微信公众号](https://mp.weixin.qq.com/s/YLtXENt_7WzO2DgJCFUtPA) / [小红书](https://xhslink.com/m/ESxtgUNMdl)：muippt
+
+---
 
 ### 📄 许可证与致谢
 
