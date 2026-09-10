@@ -23,7 +23,7 @@
 
 ### 💡 Usage Examples
 
-- 📚 **Public-domain classics** — search 西游记 / Journey to the West and get direct EPUB/TXT downloads from Wenshuoge, Daizhige and Project Gutenberg in one go
+- 📚 **One search, book in hand** — search 《高效能人士的七个习惯》 (The 7 Habits of Highly Effective People) and get ranked netdisk links with extraction codes from community book lists in one go
 - 🀄 **Ancient Chinese texts** — Pre-Qin philosophy from ctext.org, the Buddhist canon from CBETA (traditional/simplified auto-converted), Wikisource full texts
 - 🔍 **Modern bestsellers** — the GitHub book-list source scans the whole of GitHub for community-maintained netdisk directories and hands you ctfile/lanzou links with extraction codes
 - 🤖 **Agent-native** — MCP server for agent clients, plus an Agent Skill shell with a search-then-confirm workflow
@@ -37,7 +37,7 @@
 
 #### 🌐 Ten Built-in Sources, Parallel Search
 
-Looking for a public-domain classic but dreading the tour across ten different websites? One query asks every source below in parallel and hands the results back ranked; a rate-limited or unreachable source is skipped and reported honestly, never fatal to the search. Try it with "Find me Journey to the West".
+Looking for a book but dreading the tour across ten different websites? One query asks every source below in parallel and hands the results back ranked; a rate-limited or unreachable source is skipped and reported honestly, never fatal to the search. Try it with "Find me The 7 Habits of Highly Effective People".
 
 | Source | Coverage | License |
 | --- | --- | --- |
@@ -62,7 +62,7 @@ Ten sources each speak their own language; comparing them by hand takes forever.
 
 #### 🔧 Three Front-Ends, One Core
 
-Live in the terminal? Type a command. Prefer an AI agent? Let it search for you. Running an MCP client? Call it as a tool. Same engine, whichever posture you like — after installing, just tell your agent "find me a legal free copy of Journey to the West".
+Live in the terminal? Type a command. Prefer an AI agent? Let it search for you. Running an MCP client? Call it as a tool. Same engine, whichever posture you like — after installing, just tell your agent "find me a copy of The 7 Habits of Highly Effective People".
 
 #### 🧩 Custom Sources (Prowlarr-style)
 
@@ -133,7 +133,7 @@ List my available skills
 **3) Run** — one core prompt to exercise the primary value:
 
 ```
-Find me a legal free copy of 西游记 (Journey to the West), preferably EPUB.
+Find me a copy of 《高效能人士的七个习惯》 (The 7 Habits of Highly Effective People), preferably EPUB.
 ```
 
 Or invoke a specific workflow:
