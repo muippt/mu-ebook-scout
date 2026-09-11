@@ -1,0 +1,50 @@
+# ClawHub Skill 自动发布 workflow（依据 mu-github-publisher 模板生成）
+# - push 到 main 自动发布到 ClawHub registry；内容未变更时基于 fingerprint 自动跳过
+# - 手动 workflow_dispatch 可触发（支持 dry_run 预览）
+# - 发布即接受 MIT-0 许可协议（ClawHub 统一要求）
+# 分类：research,productivity（已确认）；topics：ebook,book-search,public-domain,mcp-server,agent-skill（已确认）
+# 注意：publish 路径为 skills/mu-ebook-scout（Agent Skill 壳所在子目录，非仓库根）
+
+name: Publish to ClawHub
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "skills/mu-ebook-scout/**"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Preview without publishing"
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install ClawHub CLI
+        run: npm install -g clawhub@latest
+
+      - name: Publish to ClawHub
+        env:
+          CLAWHUB_TOKEN: ${{ secrets.CLAWHUB_TOKEN }}
+        run: |
+          mkdir -p "$HOME/.config/clawhub"
+          echo "{\"registry\":\"https://clawhub.ai\",\"token\":\"$CLAWHUB_TOKEN\"}" > "$HOME/.config/clawhub/config.json"
+          claws_args=(--owner "muippt" --name "电子书下载器" --categories "research,productivity" --topics "ebook,book-search,public-domain,mcp-server,agent-skill")
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            claws_args+=(--dry-run)
+          fi
+          clawhub skill publish skills/mu-ebook-scout "${claws_args[@]}"
